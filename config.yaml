@@ -1,0 +1,40 @@
+# Live Strategy Configuration
+# All settings in one place — no CLI args needed.
+
+mode: live  # "live" or "paper"
+
+# Assets to trade
+assets: [BTC, ETH, SOL]
+
+# API keys (can also be set via .env / environment variables)
+coinbase:
+  key_file: cdp_api_key.json
+
+kalshi:
+  api_key: ""           # leave empty to use KALSHI_API_KEY env var
+  private_key_path: ""  # leave empty to use KALSHI_PRIVATE_KEY_PATH env var
+
+# Strategy parameters
+strategy:
+  model: ml                     # "gbm" (analytical) or "ml" (LightGBM)
+  edge_threshold_cents: 15.0   # minimum edge to enter (before fees)
+  fee_per_side_cents: 3.0      # effective cost per side (spread + fees)
+  max_position_per_contract: 3 # max contracts per ticker (was 5, reduce risk concentration)
+  order_size: 1                # contracts per order
+  cooldown_sec: 30.0           # seconds between trades on same ticker (was 15)
+  max_model_disagreement: 30.0 # skip if |FV - kalshi_mid| > 30c (model probably wrong)
+  prefer_early_entry: false    # allow trading throughout contract lifecycle
+
+# Filters
+filters:
+  max_spot_return_pct: 0.05    # skip if spot moved > X% from open
+  max_vol_15m: 0.0             # 0 = disabled
+  min_time_remaining_sec: 120  # don't enter with < 2 min left
+  max_time_remaining_sec: 840  # don't enter with > 14 min left
+
+# Risk management
+risk:
+  max_loss_cents: 5000         # circuit breaker: stop at -$50 total P&L
+  take_profit_pct: 20.0        # exit when +20% unrealized gain
+  stop_loss_pct: 35.0          # exit when -35% unrealized loss
+  exit_warmup_sec: 30.0        # don't check TP/SL within 30s of fill

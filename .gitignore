@@ -134,6 +134,19 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+# Recorded market data
+#/data
+
+
+# Trade logs
+logs/
+
+# API keys
+cdp_api_key.json
+keys/
+*.key
+*.pem
+
 # Environments
 .env
 .envrc

@@ -1,0 +1,1126 @@
+Loading data...
+Loaded 2,907,836 rows.
+Building time series...
+  ETH-USD: 1807 1s bars
+  SOL-USD: 1807 1s bars
+  BTC-USD: 1806 1s bars
+  KXETH15M-26MAR080330-30: 7 snapshots
+  KXBTC15M-26MAR080345-45: 9 snapshots
+  KXETH15M-26MAR080345-45: 8 snapshots
+  KXSOL15M-26MAR080345-45: 6 snapshots
+  KXBTC15M-26MAR080400-00: 7 snapshots
+
+======================================================================
+  1. TIME-ALIGNED CORRELATION ANALYSIS
+======================================================================
+
+  --- KXETH15M-26MAR080330-30 vs ETH-USD ---
+  Overlapping period: 2026-03-08 07:23:24+00:00 -> 2026-03-08 07:27:36+00:00
+  Common 1s bars:     252
+  Coinbase mid range: $1954.62 - $1956.26
+  Kalshi prob range:  2 - 33 cents
+
+  Cross-correlation (Coinbase return vs Kalshi prob change):
+   Lag (sec)   Correlation                  Interpretation
+  ----------  ------------  ------------------------------
+         -10       -0.0070             Kalshi leads by 10s
+          -5       -0.0107              Kalshi leads by 5s
+           0        0.1062                    Simultaneous
+           1       -0.0425            Coinbase leads by 1s
+           2       -0.0202            Coinbase leads by 2s
+           3        0.0061            Coinbase leads by 3s
+           5       -0.0035            Coinbase leads by 5s
+          10       -0.0062           Coinbase leads by 10s
+          15        0.0254           Coinbase leads by 15s
+          20       -0.0066           Coinbase leads by 20s
+          30       -0.0045           Coinbase leads by 30s
+          45       -0.0059           Coinbase leads by 45s
+          60        0.0936           Coinbase leads by 60s
+
+  Peak correlation:   0.2724 at lag=-28s
+  -> Kalshi LEADS Coinbase by ~28 seconds (surprising!)
+
+  --- KXBTC15M-26MAR080345-45 vs BTC-USD ---
+  Overlapping period: 2026-03-08 07:33:22+00:00 -> 2026-03-08 07:44:10+00:00
+  Common 1s bars:     648
+  Coinbase mid range: $67293.82 - $67362.18
+  Kalshi prob range:  25 - 56 cents
+
+  Cross-correlation (Coinbase return vs Kalshi prob change):
+   Lag (sec)   Correlation                  Interpretation
+  ----------  ------------  ------------------------------
+         -10        0.0105             Kalshi leads by 10s
+          -5       -0.0001              Kalshi leads by 5s
+           0        0.0155                    Simultaneous
+           1       -0.0443            Coinbase leads by 1s
+           2        0.0055            Coinbase leads by 2s
+           3       -0.0475            Coinbase leads by 3s
+           5        0.0002            Coinbase leads by 5s
+          10        0.0333           Coinbase leads by 10s
+          15        0.0000           Coinbase leads by 15s
+          20        0.0000           Coinbase leads by 20s
+          30        0.0275           Coinbase leads by 30s
+          45        0.0003           Coinbase leads by 45s
+          60        0.0088           Coinbase leads by 60s
+
+  Peak correlation:   -0.4490 at lag=-30s
+  -> Kalshi LEADS Coinbase by ~30 seconds (surprising!)
+
+  --- KXETH15M-26MAR080345-45 vs ETH-USD ---
+  Overlapping period: 2026-03-08 07:33:42+00:00 -> 2026-03-08 07:44:10+00:00
+  Common 1s bars:     628
+  Coinbase mid range: $1953.24 - $1955.05
+  Kalshi prob range:  2 - 39 cents
+
+  Cross-correlation (Coinbase return vs Kalshi prob change):
+   Lag (sec)   Correlation                  Interpretation
+  ----------  ------------  ------------------------------
+         -10       -0.1031             Kalshi leads by 10s
+          -5        0.0166              Kalshi leads by 5s
+           0       -0.0502                    Simultaneous
+           1       -0.0001            Coinbase leads by 1s
+           2        0.1061            Coinbase leads by 2s
+           3       -0.0701            Coinbase leads by 3s
+           5        0.0143            Coinbase leads by 5s
+          10       -0.0022           Coinbase leads by 10s
+          15       -0.0265           Coinbase leads by 15s
+          20        0.0191           Coinbase leads by 20s
+          30       -0.0007           Coinbase leads by 30s
+          45        0.0376           Coinbase leads by 45s
+          60        0.1152           Coinbase leads by 60s
+
+  Peak correlation:   0.1931 at lag=38s
+  -> Coinbase LEADS Kalshi by ~38 seconds
+  -> This is your exploitable window
+
+  --- KXSOL15M-26MAR080345-45 vs SOL-USD ---
+  Overlapping period: 2026-03-08 07:34:23+00:00 -> 2026-03-08 07:43:39+00:00
+  Common 1s bars:     556
+  Coinbase mid range: $82.80 - $82.94
+  Kalshi prob range:  41 - 92 cents
+
+  Cross-correlation (Coinbase return vs Kalshi prob change):
+   Lag (sec)   Correlation                  Interpretation
+  ----------  ------------  ------------------------------
+         -10       -0.0717             Kalshi leads by 10s
+          -5       -0.0375              Kalshi leads by 5s
+           0       -0.0034                    Simultaneous
+           1       -0.0034            Coinbase leads by 1s
+           2        0.0981            Coinbase leads by 2s
+           3        0.1193            Coinbase leads by 3s
+           5       -0.0030            Coinbase leads by 5s
+          10        0.0075           Coinbase leads by 10s
+          15        0.0172           Coinbase leads by 15s
+          20       -0.0040           Coinbase leads by 20s
+          30       -0.0041           Coinbase leads by 30s
+          45       -0.1291           Coinbase leads by 45s
+          60       -0.0038           Coinbase leads by 60s
+
+  Peak correlation:   -0.2083 at lag=7s
+  -> Coinbase LEADS Kalshi by ~7 seconds
+  -> This is your exploitable window
+
+  --- KXBTC15M-26MAR080400-00 vs BTC-USD ---
+  Overlapping period: 2026-03-08 07:48:38+00:00 -> 2026-03-08 07:52:03+00:00
+  Common 1s bars:     205
+  Coinbase mid range: $67265.33 - $67325.36
+  Kalshi prob range:  32 - 48 cents
+
+  Cross-correlation (Coinbase return vs Kalshi prob change):
+   Lag (sec)   Correlation                  Interpretation
+  ----------  ------------  ------------------------------
+         -10       -0.0015             Kalshi leads by 10s
+          -5       -0.0066              Kalshi leads by 5s
+           0       -0.0025                    Simultaneous
+           1       -0.0025            Coinbase leads by 1s
+           2       -0.0024            Coinbase leads by 2s
+           3       -0.0025            Coinbase leads by 3s
+           5        0.0571            Coinbase leads by 5s
+          10       -0.0026           Coinbase leads by 10s
+          15       -0.0031           Coinbase leads by 15s
+          20       -0.0011           Coinbase leads by 20s
+          30       -0.0007           Coinbase leads by 30s
+          45       -0.0042           Coinbase leads by 45s
+          60        0.0000           Coinbase leads by 60s
+
+  Peak correlation:   0.3133 at lag=46s
+  -> Coinbase LEADS Kalshi by ~46 seconds
+  -> This is your exploitable window
+
+======================================================================
+  2. EVENT STUDY: COINBASE SPOT MOVES -> KALSHI REACTION
+======================================================================
+
+  --- KXETH15M-26MAR080330-30 vs ETH-USD ---
+  Kalshi raw observations: 7
+  Avg time between Kalshi updates: 42s
+
+  Window=10s, threshold=0.02%:
+    Up moves (>0.02%):    8
+    Down moves (<-0.02%): 22
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -8.25    -12.00      4.92      8    0.0%
+      +2 updates    -13.38    -13.00      0.99      8    0.0%
+      +3 updates    -15.94    -16.50      1.13      8    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.75     +0.00      1.30      8    0.0%
+            +10s     -0.75     +0.00      1.30      8    0.0%
+            +30s     -0.75     +0.00      1.30      8    0.0%
+            +60s     -2.25     +0.00      3.90      8    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.50     -7.25      4.38     22  100.0%
+      +2 updates    -12.33    -13.00      2.84     12  100.0%
+      +3 updates    -17.96    -16.50      3.62     12  100.0%
+      +5 updates    -26.83    -30.50      5.19      3  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -1.00     +0.00      3.16     22  100.0%
+            +10s     -1.16     +0.00      3.20     22  100.0%
+            +30s     -2.58     +0.00      5.17     12  100.0%
+            +60s     -2.58     +0.00      5.17     12  100.0%
+
+  Window=10s, threshold=0.05%:
+    Up moves (>0.05%):    0
+    Down moves (<-0.05%): 3
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -12.00    -12.00      0.00      3  100.0%
+      +2 updates    -13.00    -13.00      0.00      3  100.0%
+      +3 updates    -16.50    -16.50      0.00      3  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      3    0.0%
+            +10s     +0.00     +0.00      0.00      3    0.0%
+            +30s     +0.00     +0.00      0.00      3    0.0%
+            +60s     +0.00     +0.00      0.00      3    0.0%
+
+  Window=30s, threshold=0.02%:
+    Up moves (>0.02%):    4
+    Down moves (<-0.02%): 47
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -12.00    -12.00      0.00      4    0.0%
+      +2 updates    -13.00    -13.00      0.00      4    0.0%
+      +3 updates    -16.50    -16.50      0.00      4    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      4    0.0%
+            +10s     +0.00     +0.00      0.00      4    0.0%
+            +30s     -6.00     -6.00      6.00      4    0.0%
+            +60s     -9.75    -13.00      5.63      4    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.65    -12.00      3.92     47  100.0%
+      +2 updates    -13.15    -13.00      1.73     41  100.0%
+      +3 updates    -18.27    -16.50      3.82     41  100.0%
+      +5 updates    -29.28    -30.50      3.46      9  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -1.05     +0.00      3.23     42  100.0%
+            +10s     -1.07     +0.00      3.26     41  100.0%
+            +30s     -1.73     +0.00      4.15     41  100.0%
+            +60s     -3.68     +0.00      5.73     41  100.0%
+
+  Window=60s, threshold=0.02%:
+    Up moves (>0.02%):    7
+    Down moves (<-0.02%): 79
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.14    -12.00      5.62      7    0.0%
+      +2 updates     -8.86    -13.00      4.90      7    0.0%
+      +3 updates    -14.10    -16.50      4.80      5    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -1.71     +0.00      4.20      7    0.0%
+            +10s     -1.71     +0.00      4.20      7    0.0%
+            +30s     -2.29     -1.00      4.40      7    0.0%
+            +60s    -12.00    -12.00      0.00      3    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.75    -12.00      3.85     79  100.0%
+      +2 updates    -13.36    -13.00      1.43     75  100.0%
+      +3 updates    -17.79    -16.50      3.41     75  100.0%
+      +5 updates    -29.58    -30.50      3.04     12  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.89     +0.00      2.78     75  100.0%
+            +10s     -1.83     +0.00      3.73     75  100.0%
+            +30s     -2.61     +0.00      4.86     75  100.0%
+            +60s     -5.17     -3.00      5.86     75  100.0%
+
+  Window=60s, threshold=0.05%:
+    Up moves (>0.05%):    0
+    Down moves (<-0.05%): 7
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -10.29    -12.00      4.20      7  100.0%
+      +2 updates    -11.57    -13.00      3.50      7  100.0%
+      +3 updates    -16.29    -16.50      0.52      7  100.0%
+      +5 updates    -19.50    -19.50      0.00      1  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      7    0.0%
+            +10s     +0.00     +0.00      0.00      7    0.0%
+            +30s     -0.43     +0.00      1.05      7  100.0%
+            +60s     -5.57     -3.00      5.65      7  100.0%
+
+  --- KXBTC15M-26MAR080345-45 vs BTC-USD ---
+  Kalshi raw observations: 9
+  Avg time between Kalshi updates: 81s
+
+  Window=10s, threshold=0.02%:
+    Up moves (>0.02%):    32
+    Down moves (<-0.02%): 34
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -1.05     -9.50     10.25     32   46.9%
+      +2 updates     +0.29     -1.50      2.11     31   48.4%
+      +3 updates     +0.55     -5.50      6.47     31   48.4%
+      +5 updates     -1.42     -6.50      5.32     31   48.4%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.33     +0.00      1.83     32  100.0%
+            +10s     +1.97     +0.00      4.10     32  100.0%
+            +30s     +3.45     +0.00      4.80     32  100.0%
+            +60s     +4.20     +0.00      4.83     32  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -4.78     -9.50      8.60     34   70.6%
+      +2 updates     +0.17     -1.50      2.53     33   69.7%
+      +3 updates     -2.62     -5.50      4.37     33   69.7%
+      +5 updates     -3.77     -6.50      4.14     33   69.7%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     34    0.0%
+            +10s     +0.00     +0.00      0.00     34    0.0%
+            +30s     +0.00     +0.00      0.00     34    0.0%
+            +60s     +1.65     +0.00      3.23     34    0.0%
+
+  Window=10s, threshold=0.05%:
+    Up moves (>0.05%):    9
+    Down moves (<-0.05%): 10
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.50     -9.50      0.00      9    0.0%
+      +2 updates     -1.50     -1.50      0.00      9    0.0%
+      +3 updates     -5.50     -5.50      0.00      9    0.0%
+      +5 updates     -6.50     -6.50      0.00      9    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      9    0.0%
+            +10s     +0.00     +0.00      0.00      9    0.0%
+            +30s     +0.00     +0.00      0.00      9    0.0%
+            +60s     +0.00     +0.00      0.00      9    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.50     -9.50      0.00     10  100.0%
+      +2 updates     -1.50     -1.50      0.00     10  100.0%
+      +3 updates     -5.50     -5.50      0.00     10  100.0%
+      +5 updates     -6.50     -6.50      0.00     10  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     10    0.0%
+            +10s     +0.00     +0.00      0.00     10    0.0%
+            +30s     +0.00     +0.00      0.00     10    0.0%
+            +60s     +0.00     +0.00      0.00     10    0.0%
+
+  Window=30s, threshold=0.02%:
+    Up moves (>0.02%):    83
+    Down moves (<-0.02%): 119
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -4.77     -9.50     11.00     83   37.8%
+      +2 updates     +0.90     -1.50      2.73     71   43.7%
+      +3 updates     -1.35     -5.50      4.71     71   43.7%
+      +5 updates     -2.57     -6.50      4.46     71   43.7%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.51     +0.00      1.95     79  100.0%
+            +10s     +0.61     +0.00      2.12     79  100.0%
+            +30s     +2.63     +0.00      3.76     79  100.0%
+            +60s     +2.63     +0.00      3.76     79  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.94     -9.50     10.61    119   77.8%
+      +2 updates     +0.02     -1.50      2.45     95   72.6%
+      +3 updates     -4.29     -5.50      7.28     95   72.6%
+      +5 updates     -3.78     -6.50      4.13     86   69.8%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00    119    0.0%
+            +10s     +0.00     +0.00      0.00    119    0.0%
+            +30s     -0.30     +0.00      2.30    109  100.0%
+            +60s     +1.29     +0.00      4.33     95   37.8%
+
+  Window=30s, threshold=0.05%:
+    Up moves (>0.05%):    27
+    Down moves (<-0.05%): 33
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.50     -9.50      0.00     27    0.0%
+      +2 updates     -1.50     -1.50      0.00     27    0.0%
+      +3 updates     -5.50     -5.50      0.00     27    0.0%
+      +5 updates     -6.50     -6.50      0.00     27    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     27    0.0%
+            +10s     +0.00     +0.00      0.00     27    0.0%
+            +30s     +0.00     +0.00      0.00     27    0.0%
+            +60s     +0.00     +0.00      0.00     27    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.50     -9.50      0.00     33  100.0%
+      +2 updates     -1.50     -1.50      0.00     33  100.0%
+      +3 updates     -5.50     -5.50      0.00     33  100.0%
+      +5 updates     -6.50     -6.50      0.00     33  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     33    0.0%
+            +10s     +0.00     +0.00      0.00     33    0.0%
+            +30s     +0.00     +0.00      0.00     33    0.0%
+            +60s     +0.00     +0.00      0.00     33    0.0%
+
+  Window=60s, threshold=0.02%:
+    Up moves (>0.02%):    92
+    Down moves (<-0.02%): 130
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.29     -9.50      8.98     92   15.4%
+      +2 updates     -1.35     -1.50      2.72     79   17.7%
+      +3 updates     -3.64     -5.00      3.56     79   17.7%
+      +5 updates    -12.17     -6.50     12.23     79   17.7%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.26     +0.00      1.42     92  100.0%
+            +10s     +0.26     +0.00      1.42     92  100.0%
+            +30s     +0.26     +0.00      1.42     92  100.0%
+            +60s     -0.57     +0.00      2.25     92   13.6%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.27     -9.50     10.48    130   77.8%
+      +2 updates     -2.46     -1.50      7.87    106   73.6%
+      +3 updates     -2.77     -5.50      4.89     95   70.5%
+      +5 updates     -4.24     -6.50      5.61     91   69.2%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.07     +0.00      0.49    130  100.0%
+            +10s     -0.07     +0.00      0.50    130  100.0%
+            +30s     -0.38     +0.00      2.33    114  100.0%
+            +60s     -0.48     +0.00      6.06    108   61.2%
+
+  Window=60s, threshold=0.05%:
+    Up moves (>0.05%):    7
+    Down moves (<-0.05%): 25
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -9.50     -9.50      0.00      7    0.0%
+      +2 updates     -1.50     -1.50      0.00      7    0.0%
+      +3 updates     -5.50     -5.50      0.00      7    0.0%
+      +5 updates     -6.50     -6.50      0.00      7    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      7    0.0%
+            +10s     +0.00     +0.00      0.00      7    0.0%
+            +30s     +0.00     +0.00      0.00      7    0.0%
+            +60s     +0.00     +0.00      0.00      7    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -10.08     -9.50      2.84     25  100.0%
+      +2 updates     -1.50     -1.50      0.00     24  100.0%
+      +3 updates     -5.50     -5.50      0.00     24  100.0%
+      +5 updates     -6.50     -6.50      0.00     24  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     25    0.0%
+            +10s     +0.00     +0.00      0.00     25    0.0%
+            +30s     +0.00     +0.00      0.00     24    0.0%
+            +60s     -1.58     +0.00      3.54     24  100.0%
+
+  --- KXETH15M-26MAR080345-45 vs ETH-USD ---
+  Kalshi raw observations: 8
+  Avg time between Kalshi updates: 90s
+
+  Window=10s, threshold=0.02%:
+    Up moves (>0.02%):    48
+    Down moves (<-0.02%): 62
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -3.78     -1.50     14.29     48   31.9%
+      +2 updates     -9.81    -11.50     16.91     48   31.2%
+      +3 updates    -18.78    -20.50     11.10     48    2.1%
+      +5 updates    -25.21    -22.50      4.91     21    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     48    0.0%
+            +10s     +0.00     +0.00      0.00     48    0.0%
+            +30s     +0.00     +0.00      0.00     48    0.0%
+            +60s     +0.26     +0.00     11.41     48   60.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.07     -9.00      9.73     62  100.0%
+      +2 updates    -12.86    -13.50     16.89     62   74.2%
+      +3 updates    -17.96    -15.50     12.40     57  100.0%
+      +5 updates    -27.14    -27.00      4.83     37  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.85     +0.00      4.33     62  100.0%
+            +10s     -1.02     +0.00      4.33     62  100.0%
+            +30s     -2.61     +0.00      5.19     62  100.0%
+            +60s     -7.98     -6.75      8.30     54  100.0%
+
+  Window=10s, threshold=0.05%:
+    Up moves (>0.05%):    4
+    Down moves (<-0.05%): 9
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -1.50     -1.50      0.00      4    0.0%
+      +2 updates    +11.50    +11.50      0.00      4  100.0%
+      +3 updates    -13.00    -13.00      0.00      4    0.0%
+      +5 updates    -22.50    -22.50      0.00      4    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      4    0.0%
+            +10s     +0.00     +0.00      0.00      4    0.0%
+            +30s     +0.00     +0.00      0.00      4    0.0%
+            +60s     +0.00     +0.00      0.00      4    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -12.00    -12.00      0.00      9  100.0%
+      +2 updates    -13.50    -13.50      0.00      9  100.0%
+      +3 updates     -0.50     -0.50      0.00      9  100.0%
+      +5 updates    -34.00    -34.00      0.00      9  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      9    0.0%
+            +10s     +0.00     +0.00      0.00      9    0.0%
+            +30s     -2.67     +0.00      4.99      9  100.0%
+            +60s    -12.00    -12.00      0.00      9  100.0%
+
+  Window=30s, threshold=0.02%:
+    Up moves (>0.02%):    108
+    Down moves (<-0.02%): 125
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -2.56     -1.50     14.36    108   34.0%
+      +2 updates     -8.90    -11.50     17.91    103   36.9%
+      +3 updates    -21.09    -20.50      8.94    103    1.0%
+      +5 updates    -22.49    -22.50      0.08     39    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00    103    0.0%
+            +10s     +0.00     +0.00      0.00    103    0.0%
+            +30s     +1.89     +0.00      4.59    103  100.0%
+            +60s     -0.50     +0.00     13.46    103   60.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -10.88    -12.00      9.35    125  100.0%
+      +2 updates     -8.60    -13.50     18.35    125   60.0%
+      +3 updates    -15.77    -13.00     12.79    116  100.0%
+      +5 updates    -26.88    -22.50      5.61     81  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.45     +0.00      3.08    125  100.0%
+            +10s     -0.80     +0.00      3.55    125  100.0%
+            +30s     -4.56     +0.00      7.08    122  100.0%
+            +60s     -3.76     +0.00      5.29    107  100.0%
+
+  Window=30s, threshold=0.05%:
+    Up moves (>0.05%):    17
+    Down moves (<-0.05%): 22
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +9.59    +13.00      6.15     17   76.5%
+      +2 updates     -6.09    -11.50      9.76     17   23.5%
+      +3 updates    -18.74    -20.50      3.18     17    0.0%
+      +5 updates    -22.50    -22.50      0.00      4    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     17    0.0%
+            +10s     +0.00     +0.00      0.00     17    0.0%
+            +30s     +0.00     +0.00      0.00     17    0.0%
+            +60s     +9.94    +13.00      5.51     17  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -10.09    -12.00      4.05     22  100.0%
+      +2 updates     -8.95    -13.50      9.64     22   81.8%
+      +3 updates     -2.77     -0.50      4.82     22  100.0%
+      +5 updates    -31.91    -34.00      4.44     22  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     22    0.0%
+            +10s     -1.09     +0.00      3.45     22  100.0%
+            +30s     -6.00     -6.00      6.00     22  100.0%
+            +60s     -9.82    -12.00      4.63     22  100.0%
+
+  Window=60s, threshold=0.02%:
+    Up moves (>0.02%):    185
+    Down moves (<-0.02%): 148
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -7.94     -1.50     15.27    185   23.4%
+      +2 updates    -13.26    -11.50     19.54    185   33.5%
+      +3 updates    -23.82    -20.50      9.30    185    0.0%
+      +5 updates    -22.50    -22.50      0.00     62    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.35     +0.00      2.11    185  100.0%
+            +10s     +0.70     +0.00      2.94    185  100.0%
+            +30s     -0.18     +0.00      9.09    185   57.7%
+            +60s     -2.58     +0.00     13.43    175   38.1%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.82     -9.00     10.29    148  100.0%
+      +2 updates    -10.05     -9.50     19.93    148   58.8%
+      +3 updates    -20.91    -13.00     11.85    128  100.0%
+      +5 updates    -24.24    -22.50      4.15     72  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -0.79     +0.00      3.53    148  100.0%
+            +10s     -1.24     +0.00      4.06    148  100.0%
+            +30s     -1.97     +0.00      4.57    134  100.0%
+            +60s     -1.28     +0.00      3.37    125  100.0%
+
+  Window=60s, threshold=0.05%:
+    Up moves (>0.05%):    31
+    Down moves (<-0.05%): 16
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +1.69    +13.00     16.91     31   70.0%
+      +2 updates    -18.31    -11.50      9.98     31    0.0%
+      +3 updates    -24.84    -20.50      6.29     31    0.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +2.10     +0.00      4.78     31  100.0%
+            +10s     +4.19     +0.00      6.08     31  100.0%
+            +30s     +8.81    +13.00      6.08     31  100.0%
+            +60s     +5.65    +13.00     12.65     31   84.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -8.72    -12.00      4.87     16  100.0%
+      +2 updates     -5.69    -13.50     11.59     16   68.8%
+      +3 updates     -4.41     -0.50      5.79     16  100.0%
+      +5 updates    -30.41    -34.00      5.33     16  100.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -3.75     +0.00      5.56     16  100.0%
+            +10s     -7.50    -12.00      5.81     16  100.0%
+            +30s     -8.25    -12.00      5.56     16  100.0%
+            +60s     -8.25    -12.00      5.56     16  100.0%
+
+  --- KXSOL15M-26MAR080345-45 vs SOL-USD ---
+  Kalshi raw observations: 6
+  Avg time between Kalshi updates: 111s
+
+  Window=10s, threshold=0.02%:
+    Up moves (>0.02%):    64
+    Down moves (<-0.02%): 33
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +16.73     +6.50     13.05     64  100.0%
+      +2 updates    +26.59    +38.00     12.68     38  100.0%
+      +3 updates    +18.00    +18.00      0.00     17  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     64    0.0%
+            +10s     +0.00     +0.00      0.00     64    0.0%
+            +30s     +1.28     +0.00      3.54     64  100.0%
+            +60s     +2.82     +0.00      4.61     51  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +10.02     +6.50      9.51     33    0.0%
+      +2 updates    +25.25    +25.25     12.75     28    0.0%
+      +3 updates    +18.00    +18.00      0.00     14    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +1.05     +0.00      5.74     31    0.0%
+            +10s     +0.00     +0.00      0.00     28    0.0%
+            +30s     +0.98     +0.00      2.11     28    0.0%
+            +60s     +0.98     +0.00      2.11     28    0.0%
+
+  Window=10s, threshold=0.05%:
+    Up moves (>0.05%):    4
+    Down moves (<-0.05%): 1
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +6.50     +6.50      0.00      4  100.0%
+      +2 updates    +12.50    +12.50      0.00      4  100.0%
+      +3 updates    +18.00    +18.00      0.00      4  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      4    0.0%
+            +10s     +0.00     +0.00      0.00      4    0.0%
+            +30s     +0.00     +0.00      0.00      4    0.0%
+            +60s     +0.00     +0.00      0.00      4    0.0%
+
+  Window=30s, threshold=0.02%:
+    Up moves (>0.02%):    148
+    Down moves (<-0.02%): 70
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +15.78     +6.50     12.88    148  100.0%
+      +2 updates    +22.95    +12.50     12.83     93  100.0%
+      +3 updates    +22.58    +18.00      9.99     54  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.42     +0.00      1.57    148  100.0%
+            +10s     +0.84     +0.00      2.14    148  100.0%
+            +30s     +1.90     +0.00      4.69    147  100.0%
+            +60s     +3.62     +0.00      5.08    117  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +11.39     +6.50     10.57     70    0.0%
+      +2 updates    +22.52    +12.50     12.45     56    0.0%
+      +3 updates    +18.00    +18.00      0.00     34    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.47     +0.00      3.88     69    0.0%
+            +10s     +0.00     +0.00      0.00     66    0.0%
+            +30s     +0.00     +0.00      0.00     66    0.0%
+            +60s     +0.00     +0.00      0.00     66    0.0%
+
+  Window=30s, threshold=0.05%:
+    Up moves (>0.05%):    36
+    Down moves (<-0.05%): 1
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +20.60    +32.50     13.31     36  100.0%
+      +2 updates    +31.56    +38.00     11.15     16  100.0%
+      +3 updates    +24.50    +18.00     11.26      4  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     36    0.0%
+            +10s     +0.17     +0.00      0.99     36  100.0%
+            +30s     +0.17     +0.00      0.99     36  100.0%
+            +60s     +5.22     +5.50      6.74     20  100.0%
+
+  Window=60s, threshold=0.02%:
+    Up moves (>0.02%):    210
+    Down moves (<-0.02%): 72
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +14.88     +6.50     12.75    210  100.0%
+      +2 updates    +28.90    +38.00     12.42    137  100.0%
+      +3 updates    +23.16    +18.00     10.46     48  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.30     +0.00      1.34    207  100.0%
+            +10s     +0.88     +0.00      2.97    205  100.0%
+            +30s     +2.67     +0.00      4.69    185  100.0%
+            +60s     +4.37     +5.50      4.88    155  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +17.61     +6.50     12.95     72    0.0%
+      +2 updates    +16.23    +12.50      9.01     41    0.0%
+      +3 updates    +18.00    +18.00      0.00     35    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     72    0.0%
+            +10s     +0.00     +0.00      0.00     72    0.0%
+            +30s     +0.00     +0.00      0.00     72    0.0%
+            +60s     +0.27     +0.00      1.30     72    0.0%
+
+  Window=60s, threshold=0.05%:
+    Up moves (>0.05%):    69
+    Down moves (<-0.05%): 3
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +28.99    +32.50      9.07     69  100.0%
+      +2 updates    +35.06    +38.00      8.33      9  100.0%
+      +3 updates    +44.00    +44.00      0.00      1  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     69    0.0%
+            +10s     +0.09     +0.00      0.72     69  100.0%
+            +30s     +0.77     +0.00      4.61     50  100.0%
+            +60s     +4.12     +2.75      7.05     20  100.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +6.50     +6.50      0.00      3    0.0%
+      +2 updates    +12.50    +12.50      0.00      3    0.0%
+      +3 updates    +18.00    +18.00      0.00      3    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      3    0.0%
+            +10s     +0.00     +0.00      0.00      3    0.0%
+            +30s     +0.00     +0.00      0.00      3    0.0%
+            +60s     +0.00     +0.00      0.00      3    0.0%
+
+  --- KXBTC15M-26MAR080400-00 vs BTC-USD ---
+  Kalshi raw observations: 7
+  Avg time between Kalshi updates: 34s
+
+  Window=10s, threshold=0.02%:
+    Up moves (>0.02%):    20
+    Down moves (<-0.02%): 17
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +2.00     +2.00     13.00     20   50.0%
+      +2 updates     -9.50     -9.50      0.00     10    0.0%
+      +3 updates     -9.50     -9.50      0.00     10    0.0%
+      +5 updates     +5.00     +5.00      0.00     10  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     20    0.0%
+            +10s     +0.00     +0.00      0.00     20    0.0%
+            +30s     +0.00     +0.00      0.00     10    0.0%
+            +60s     +0.00     +0.00      0.00     10    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.00    -11.00      0.00     17  100.0%
+      +2 updates     -9.50     -9.50      0.00     17  100.0%
+      +3 updates     -9.50     -9.50      0.00     17  100.0%
+      +5 updates     +5.00     +5.00      0.00     17    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     17    0.0%
+            +10s     +0.00     +0.00      0.00     17    0.0%
+            +30s     -3.88     +0.00      5.26     17  100.0%
+            +60s    -10.47    -11.00      0.72     17  100.0%
+
+  Window=10s, threshold=0.05%:
+    Up moves (>0.05%):    0
+    Down moves (<-0.05%): 7
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.00    -11.00      0.00      7  100.0%
+      +2 updates     -9.50     -9.50      0.00      7  100.0%
+      +3 updates     -9.50     -9.50      0.00      7  100.0%
+      +5 updates     +5.00     +5.00      0.00      7    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00      7    0.0%
+            +10s     +0.00     +0.00      0.00      7    0.0%
+            +30s     +0.00     +0.00      0.00      7    0.0%
+            +60s    -11.00    -11.00      0.00      7  100.0%
+
+  Window=30s, threshold=0.02%:
+    Up moves (>0.02%):    60
+    Down moves (<-0.02%): 33
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +2.00     +2.00     13.00     60   50.0%
+      +2 updates     -9.50     -9.50      0.00     30    0.0%
+      +3 updates     -9.50     -9.50      0.00     30    0.0%
+      +5 updates     +5.00     +5.00      0.00     30  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     60    0.0%
+            +10s     +0.27     +0.00      1.99     56  100.0%
+            +30s     +0.42     +0.00      2.47     36  100.0%
+            +60s     -5.13     +0.00      5.49     30    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.00    -11.00      0.00     33  100.0%
+      +2 updates     -9.50     -9.50      0.00     33  100.0%
+      +3 updates     -9.50     -9.50      0.00     33  100.0%
+      +5 updates     +5.00     +5.00      0.00     33    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     33    0.0%
+            +10s     +0.00     +0.00      0.00     33    0.0%
+            +30s     -6.67    -11.00      5.37     33  100.0%
+            +60s    -10.18    -10.00      0.72     33  100.0%
+
+  Window=30s, threshold=0.05%:
+    Up moves (>0.05%):    26
+    Down moves (<-0.05%): 27
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     +1.00    -11.00     12.96     26   46.2%
+      +2 updates     -9.50     -9.50      0.00     14    0.0%
+      +3 updates     -9.50     -9.50      0.00     14    0.0%
+      +5 updates     +5.00     +5.00      0.00     14  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     26    0.0%
+            +10s     +0.00     +0.00      0.00     26    0.0%
+            +30s     +0.00     +0.00      0.00     14    0.0%
+            +60s     +0.00     +0.00      0.00     14    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    -11.00    -11.00      0.00     27  100.0%
+      +2 updates     -9.50     -9.50      0.00     27  100.0%
+      +3 updates     -9.50     -9.50      0.00     27  100.0%
+      +5 updates     +5.00     +5.00      0.00     27    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     27    0.0%
+            +10s     +0.00     +0.00      0.00     27    0.0%
+            +30s     -6.93    -11.00      5.31     27  100.0%
+            +60s    -10.11     -9.50      0.74     27  100.0%
+
+  Window=60s, threshold=0.02%:
+    Up moves (>0.02%):    40
+    Down moves (<-0.02%): 49
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +12.68    +15.00      7.14     40   92.3%
+      +2 updates     -9.50     -9.50      0.00      3    0.0%
+      +3 updates     -9.50     -9.50      0.00      3    0.0%
+      +5 updates     +5.00     +5.00      0.00      3  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.43     +0.00      2.50     35  100.0%
+            +10s     +0.50     +0.00      2.69     30  100.0%
+            +30s     +1.50     +0.00      4.50     10  100.0%
+            +60s    -11.00    -11.00      0.00      3    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -6.44    -11.00      5.99     49   64.6%
+      +2 updates     -5.46     -9.50      5.30     49   63.3%
+      +3 updates     -5.63     -9.50      5.08     49   63.3%
+      +5 updates     +5.34     +5.00      1.91     32    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -1.12     +0.00      3.33     49  100.0%
+            +10s     -2.24     +0.00      4.43     49  100.0%
+            +30s     -6.22    -11.00      6.01     49   63.8%
+            +60s     -5.84     -9.50      5.22     49   63.3%
+
+  Window=60s, threshold=0.05%:
+    Up moves (>0.05%):    17
+    Down moves (<-0.05%): 35
+    UP events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates    +11.94    +15.00      8.38     17   88.2%
+      +2 updates     -9.50     -9.50      0.00      2    0.0%
+      +3 updates     -9.50     -9.50      0.00      2    0.0%
+      +5 updates     +5.00     +5.00      0.00      2  100.0%
+    UP events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     +0.00     +0.00      0.00     17    0.0%
+            +10s     +0.00     +0.00      0.00     17    0.0%
+            +30s     +0.00     +0.00      0.00      2    0.0%
+            +60s    -11.00    -11.00      0.00      2    0.0%
+    DOWN events -> Kalshi reaction (by next Kalshi update):
+           After      Mean    Median    StdDev      N    Hit%
+      +1 updates     -4.97    -11.00      6.21     35   52.9%
+      +2 updates     -4.16     -9.50      5.50     35   51.4%
+      +3 updates     -4.39     -9.50      5.26     35   51.4%
+      +5 updates     +5.58     +5.00      2.46     19    0.0%
+    DOWN events -> Kalshi reaction (by wall time):
+           After      Mean    Median    StdDev      N    Hit%
+             +5s     -1.57     +0.00      3.85     35  100.0%
+            +10s     -3.14     +0.00      4.97     35  100.0%
+            +30s     -4.97    -11.00      6.21     35   52.9%
+            +60s     -4.59     -9.50      5.43     35   51.4%
+
+======================================================================
+  3. TRADE FLOW -> KALSHI PREDICTION
+======================================================================
+
+  --- Coinbase ETH-USD flow -> KXETH15M-26MAR080330-30 ---
+
+  10s cumulative flow -> 10s forward Kalshi change:
+    Correlation:       +0.0355
+    After buy flow:    Kalshi moves -0.60 cents (n=61)
+    After sell flow:   Kalshi moves -0.39 cents (n=61)
+
+  30s cumulative flow -> 30s forward Kalshi change:
+    Correlation:       -0.2937
+    After buy flow:    Kalshi moves -5.36 cents (n=56)
+    After sell flow:   Kalshi moves -2.41 cents (n=56)
+
+  60s cumulative flow -> 60s forward Kalshi change:
+    Correlation:       -0.1965
+    After buy flow:    Kalshi moves -5.53 cents (n=48)
+    After sell flow:   Kalshi moves -3.42 cents (n=48)
+
+  --- Coinbase BTC-USD flow -> KXBTC15M-26MAR080345-45 ---
+
+  10s cumulative flow -> 10s forward Kalshi change:
+    Correlation:       -0.0178
+    After buy flow:    Kalshi moves -0.21 cents (n=160)
+    After sell flow:   Kalshi moves +0.52 cents (n=160)
+
+  30s cumulative flow -> 30s forward Kalshi change:
+    Correlation:       -0.0269
+    After buy flow:    Kalshi moves -0.43 cents (n=155)
+    After sell flow:   Kalshi moves +1.33 cents (n=155)
+
+  60s cumulative flow -> 60s forward Kalshi change:
+    Correlation:       +0.1124
+    After buy flow:    Kalshi moves +2.14 cents (n=147)
+    After sell flow:   Kalshi moves -2.23 cents (n=147)
+
+  --- Coinbase ETH-USD flow -> KXETH15M-26MAR080345-45 ---
+
+  10s cumulative flow -> 10s forward Kalshi change:
+    Correlation:       -0.0449
+    After buy flow:    Kalshi moves -0.93 cents (n=155)
+    After sell flow:   Kalshi moves -0.50 cents (n=153)
+
+  30s cumulative flow -> 30s forward Kalshi change:
+    Correlation:       -0.1752
+    After buy flow:    Kalshi moves -2.82 cents (n=148)
+    After sell flow:   Kalshi moves -2.53 cents (n=150)
+
+  60s cumulative flow -> 60s forward Kalshi change:
+    Correlation:       -0.2631
+    After buy flow:    Kalshi moves -4.61 cents (n=142)
+    After sell flow:   Kalshi moves -2.21 cents (n=140)
+
+  --- Coinbase SOL-USD flow -> KXSOL15M-26MAR080345-45 ---
+
+  10s cumulative flow -> 10s forward Kalshi change:
+    Correlation:       +0.0222
+    After buy flow:    Kalshi moves +0.29 cents (n=136)
+    After sell flow:   Kalshi moves +0.47 cents (n=135)
+
+  30s cumulative flow -> 30s forward Kalshi change:
+    Correlation:       +0.0296
+    After buy flow:    Kalshi moves -0.21 cents (n=132)
+    After sell flow:   Kalshi moves +2.60 cents (n=129)
+
+  60s cumulative flow -> 60s forward Kalshi change:
+    Correlation:       +0.1748
+    After buy flow:    Kalshi moves +0.75 cents (n=122)
+    After sell flow:   Kalshi moves +0.00 cents (n=122)
+
+  --- Coinbase BTC-USD flow -> KXBTC15M-26MAR080400-00 ---
+
+  10s cumulative flow -> 10s forward Kalshi change:
+    Correlation:       +0.0310
+    After buy flow:    Kalshi moves +0.40 cents (n=49)
+    After sell flow:   Kalshi moves +1.22 cents (n=49)
+
+  30s cumulative flow -> 30s forward Kalshi change:
+    Correlation:       -0.1727
+    After buy flow:    Kalshi moves -1.93 cents (n=44)
+    After sell flow:   Kalshi moves -0.39 cents (n=44)
+
+  60s cumulative flow -> 60s forward Kalshi change:
+    Correlation:       -0.4471
+    After buy flow:    Kalshi moves -9.76 cents (n=37)
+    After sell flow:   Kalshi moves -0.03 cents (n=37)
+
+======================================================================
+  4. KALSHI MICROSTRUCTURE
+======================================================================
+
+  --- KXETH15M-26MAR080330-30 ---
+  Observations:   7
+  Prob range:     2 - 33 cents
+  Total movement: -31 cents
+  Autocorr(1):    -0.6941  (mean-revert)
+  Spread:         mean=1.6  min=1  max=3
+  Trades:         181
+  Trade prices:   1 - 67
+  Avg trade size: 31.9 contracts
+    no trades:    108 (3662 contracts)
+   yes trades:    73 (2110 contracts)
+
+  --- KXBTC15M-26MAR080345-45 ---
+  Observations:   9
+  Prob range:     25 - 56 cents
+  Total movement: -20 cents
+  Autocorr(1):    -0.4349  (mean-revert)
+  Spread:         mean=2.2  min=1  max=3
+  Trades:         1545
+  Trade prices:   1 - 87
+  Avg trade size: 35.6 contracts
+    no trades:    715 (28542 contracts)
+   yes trades:    830 (26474 contracts)
+
+  --- KXETH15M-26MAR080345-45 ---
+  Observations:   8
+  Prob range:     2 - 39 cents
+  Total movement: -36 cents
+  Autocorr(1):    -0.3513  (mean-revert)
+  Spread:         mean=4.1  min=2  max=11
+  Trades:         282
+  Trade prices:   1 - 68
+  Avg trade size: 9.2 contracts
+    no trades:    133 (1192 contracts)
+   yes trades:    149 (1389 contracts)
+
+  --- KXSOL15M-26MAR080345-45 ---
+  Observations:   6
+  Prob range:     41 - 92 cents
+  Total movement: +47 cents
+  Autocorr(1):    +0.2370  (momentum)
+  Spread:         mean=3.3  min=1  max=5
+  Trades:         180
+  Trade prices:   37 - 99
+  Avg trade size: 11.0 contracts
+    no trades:    77 (895 contracts)
+   yes trades:    103 (1079 contracts)
+
+  --- KXBTC15M-26MAR080400-00 ---
+  Observations:   7
+  Prob range:     32 - 48 cents
+  Total movement: +17 cents
+  Autocorr(1):    -0.5220  (mean-revert)
+  Spread:         mean=2.1  min=1  max=4
+  Trades:         533
+  Trade prices:   26 - 80
+  Avg trade size: 39.1 contracts
+   yes trades:    326 (15132 contracts)
+    no trades:    207 (5729 contracts)
+
+======================================================================
+  5. STRATEGY IMPLICATIONS
+======================================================================
+
+  LEAD-LAG STRATEGY CONCEPT:
+  -----------------------------------------------------------------
+  1. Monitor Coinbase BTC/ETH/SOL spot price in real-time (sub-second)
+  2. When spot moves significantly over a short window:
+     - Compute new fair value for Kalshi 15-min contract
+     - If Kalshi hasn't adjusted yet, take the stale price
+  3. Key parameters to optimize:
+     - Spot move threshold (how big a move to trigger)
+     - Lookback window (5s? 10s? 30s?)
+     - How to estimate fair Kalshi value from spot move
+     - Position sizing and max exposure
+
+  FAIR VALUE ESTIMATION:
+  -----------------------------------------------------------------
+  For "will BTC go up in next 15 min?" contracts:
+  - If BTC is UP +0.05% with 10 min remaining -> prob should increase
+  - The magnitude depends on current vol and time remaining
+  - Simple model: P(up) = Phi(current_return / (vol * sqrt(time_remaining)))
+  - More sophisticated: use order flow as additional signal
+
+  RISK CONSIDERATIONS:
+  -----------------------------------------------------------------
+  - Kalshi fees eat into edge (~3-7 cents per side)
+  - Need sufficient edge to overcome spread + fees
+  - Contract expiry creates gamma risk near settlement
+  - Position limits on Kalshi
+  - Execution risk: REST API latency for Kalshi orders
+
+  KXETH15M-26MAR080330-30:
+    Total absolute movement:  31 cents in 4 min
+    Movement rate:            7.4 cents/min
+    If you capture 20% of moves net of fees:
+      ~1.0 cents/min/contract
+      ~$0.58/hr per contract traded continuously
+  KXBTC15M-26MAR080345-45:
+    Total absolute movement:  58 cents in 11 min
+    Movement rate:            5.3 cents/min
+    If you capture 20% of moves net of fees:
+      ~0.6 cents/min/contract
+      ~$0.34/hr per contract traded continuously
+  KXETH15M-26MAR080345-45:
+    Total absolute movement:  62 cents in 10 min
+    Movement rate:            6.0 cents/min
+    If you capture 20% of moves net of fees:
+      ~0.7 cents/min/contract
+      ~$0.42/hr per contract traded continuously
+  KXSOL15M-26MAR080345-45:
+    Total absolute movement:  54 cents in 9 min
+    Movement rate:            5.8 cents/min
+    If you capture 20% of moves net of fees:
+      ~0.7 cents/min/contract
+      ~$0.40/hr per contract traded continuously
+  KXBTC15M-26MAR080400-00:
+    Total absolute movement:  40 cents in 3 min
+    Movement rate:            11.7 cents/min
+    If you capture 20% of moves net of fees:
+      ~1.8 cents/min/contract
+      ~$1.10/hr per contract traded continuously
+
