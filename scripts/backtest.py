@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 
 from strategy.fair_value import parse_contract_ticker, ContractInfo
 from strategy.backtest_engine import BacktestEngine, BacktestConfig, ContractResult
+from strategy.models import get_model
 
 
 # -- Data loading ---------------------------------------------------------
@@ -129,9 +130,11 @@ def run_backtest(
     cb_mid: pd.DataFrame,
     config: BacktestConfig,
     asset: str,
+    model_name: str = "gbm",
 ) -> BacktestEngine:
     """Process all events through the backtest engine."""
-    engine = BacktestEngine(config)
+    model = get_model(model_name)
+    engine = BacktestEngine(config, model=model)
 
     # Pre-register all contracts
     for info in contracts:
@@ -402,6 +405,7 @@ def main() -> None:
     parser.add_argument("--max-spot-ret", type=float, default=0.1, help="Max spot return %% filter (0=off)")
     parser.add_argument("--max-vol", type=float, default=0.0, help="Max vol_15m filter (0=off)")
     parser.add_argument("--early-only", action="store_true", help="Only trade with >9min remaining")
+    parser.add_argument("--model", default="gbm", help="Model name (gbm, logistic, ...)")
     args = parser.parse_args()
 
     base = Path(args.data_dir)
@@ -451,8 +455,8 @@ def main() -> None:
         prefer_early_entry=args.early_only,
     )
 
-    print("Running backtest...")
-    engine = run_backtest(events, contracts, cb_mid, config, asset)
+    print(f"Running backtest with model={args.model}...")
+    engine = run_backtest(events, contracts, cb_mid, config, asset, model_name=args.model)
     print_results(engine, config)
 
     if args.sweep:

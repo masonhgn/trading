@@ -10,7 +10,9 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from strategy.fair_value import ContractInfo, VolEstimator, compute_fair_value
+from strategy.fair_value import ContractInfo, VolEstimator
+from strategy.models import MarketState, TheoModel
+from strategy.models.gbm import GBMModel
 
 
 @dataclass(slots=True)
@@ -63,13 +65,23 @@ class BacktestConfig:
 class BacktestEngine:
     """Runs an event-driven backtest over historical data."""
 
-    def __init__(self, config: BacktestConfig | None = None) -> None:
+    def __init__(
+        self,
+        config: BacktestConfig | None = None,
+        model: TheoModel | None = None,
+    ) -> None:
         self.config = config or BacktestConfig()
+        self._model: TheoModel = model or GBMModel()
 
         # Per-asset state
         self._spot: dict[str, float] = {}           # asset -> current spot
         self._vol: dict[str, VolEstimator] = {}      # asset -> vol estimator
         self._last_eval_spot: dict[str, float] = {}  # asset -> spot at last eval
+
+        # Optional feature trackers (set externally for models that need them)
+        self.flow_trackers: dict[str, object] = {}   # asset -> FlowTracker
+        self.book_trackers: dict[str, object] = {}   # asset -> BookImbalanceTracker
+        self.momentum_trackers: dict[str, object] = {}  # asset -> MomentumTracker
 
         # Per-contract state
         self._contracts: dict[str, ContractInfo] = {}
@@ -233,14 +245,32 @@ class BacktestEngine:
             if cfg.prefer_early_entry and time_remaining < 540:
                 continue
 
-            # Fair value
-            fv = compute_fair_value(spot, spot_open, vol, time_remaining)
+            # Build market state and compute fair value via pluggable model
+            flow_t = self.flow_trackers.get(asset)
+            book_t = self.book_trackers.get(asset)
+            mom_t = self.momentum_trackers.get(asset)
+            state = MarketState(
+                spot=spot,
+                spot_at_open=spot_open,
+                vol_15m=vol,
+                time_remaining_sec=time_remaining,
+                asset=info.asset,
+                kalshi_bid=bid,
+                kalshi_ask=ask,
+                flow_imbalance=getattr(flow_t, "imbalance", None),
+                book_imbalance=getattr(book_t, "imbalance", None),
+                momentum_1m=getattr(mom_t, "momentum", None),
+            )
+            fv = self._model.fair_value(state)
             fv_cents = fv * 100
 
             kalshi_mid = (bid + ask) / 2
             edge = fv_cents - kalshi_mid
 
-            min_edge = cfg.edge_threshold_cents + cfg.fee_per_side_cents
+            # Edge threshold is the minimum model edge required to enter.
+            # Fees are already accounted for in P&L at settlement — don't
+            # double-count them as an additional entry hurdle.
+            min_edge = cfg.edge_threshold_cents
 
             if edge > min_edge and pos < cfg.max_position_per_contract:
                 # Buy YES at the ask

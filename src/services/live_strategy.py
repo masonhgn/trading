@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from dotenv import load_dotenv
 load_dotenv()
 
-from gateway.base import BookUpdate, FillUpdate, OrderRequest, OrderUpdate, PositionUpdate
+from gateway.base import BookUpdate, FillUpdate, OrderRequest, OrderUpdate, PositionUpdate, TradeUpdate
 from gateway.coinbase.data import CoinbaseDataGateway
 from gateway.kalshi import (
     KalshiDataGateway,
@@ -50,6 +50,8 @@ from strategy.fair_value import (
     compute_fair_value,
     parse_contract_ticker,
 )
+from strategy.models import MarketState, TheoModel, get_model
+from strategy.features import FlowTracker, BookImbalanceTracker, MomentumTracker
 
 logging.basicConfig(
     level=logging.INFO,
@@ -105,10 +107,25 @@ class LiveStrategy:
         # FIX #1: Store event loop reference for thread-safe callbacks
         self._loop: asyncio.AbstractEventLoop | None = None
 
+        # Pluggable model
+        self._model: TheoModel = get_model(config.model)
+        logger.info("Using model: %s", self._model.name)
+
         # Per-asset state
         self._spot: dict[str, float] = {}
         self._vol: dict[str, VolEstimator] = {
             a: VolEstimator(config.vol_lookback_sec, asset=a) for a in self.assets
+        }
+
+        # Feature trackers (feed into MarketState for models that use them)
+        self._flow: dict[str, FlowTracker] = {
+            a: FlowTracker(lookback_sec=120.0) for a in self.assets
+        }
+        self._book_imb: dict[str, BookImbalanceTracker] = {
+            a: BookImbalanceTracker() for a in self.assets
+        }
+        self._momentum: dict[str, MomentumTracker] = {
+            a: MomentumTracker(lookback_sec=60.0) for a in self.assets
         }
 
         # Per-contract state
@@ -168,6 +185,7 @@ class LiveStrategy:
 
         # Register callbacks
         self.cb_data.on_book_update(self._on_coinbase_book)
+        self.cb_data.on_trade(self._on_coinbase_trade)
         self.ka_data.on_book_update(self._on_kalshi_book)
         self.ka_data.on_fill(self._on_fill)
         self.ka_data.on_order_update(self._on_order_update)
@@ -388,6 +406,12 @@ class LiveStrategy:
         self._spot[asset] = update.mid
         self._vol[asset].update(update.ts, update.mid)
 
+        # Update feature trackers
+        if asset in self._momentum:
+            self._momentum[asset].update(update.ts, update.mid)
+        if asset in self._book_imb:
+            self._book_imb[asset].update(update.bid_size, update.ask_size)
+
         # Set window-open price for active contracts
         for ticker, info in self._contracts.items():
             if info.asset == asset and ticker not in self._spot_at_open:
@@ -401,6 +425,12 @@ class LiveStrategy:
                 self._evaluate_signals(update.ts, asset),
                 self._loop,
             )
+
+    def _on_coinbase_trade(self, update: TradeUpdate) -> None:
+        """Handle Coinbase trade event — feeds the FlowTracker."""
+        asset = update.symbol.split("-")[0]
+        if asset in self._flow:
+            self._flow[asset].update(update.ts, update.size, update.side)
 
     def _on_kalshi_book(self, update: BookUpdate) -> None:
         """Handle Kalshi book update — also triggers evaluation.
@@ -626,22 +656,30 @@ class LiveStrategy:
             if cfg.prefer_early_entry and time_remaining < 540:
                 continue
 
-            # Fair value
-            if cfg.model == "ml":
-                from strategy.ml_fair_value import compute_fair_value as ml_fv
-                kalshi_mid_val = (bid + ask) / 2
-                fv = ml_fv(
-                    spot, spot_open, vol, time_remaining,
-                    asset=info.asset,
-                    kalshi_mid=kalshi_mid_val,
-                    kalshi_spread=ask - bid,
-                )
-            else:
-                fv = compute_fair_value(spot, spot_open, vol, time_remaining)
+            # Build market state and compute fair value via pluggable model
+            flow_t = self._flow.get(info.asset)
+            book_t = self._book_imb.get(info.asset)
+            mom_t = self._momentum.get(info.asset)
+            state = MarketState(
+                spot=spot,
+                spot_at_open=spot_open,
+                vol_15m=vol,
+                time_remaining_sec=time_remaining,
+                asset=info.asset,
+                kalshi_bid=bid,
+                kalshi_ask=ask,
+                flow_imbalance=flow_t.imbalance if flow_t else None,
+                book_imbalance=book_t.imbalance if book_t else None,
+                momentum_1m=mom_t.momentum if mom_t else None,
+            )
+            fv = self._model.fair_value(state)
             fv_cents = fv * 100
             kalshi_mid = (bid + ask) / 2
             edge = fv_cents - kalshi_mid
-            min_edge = cfg.edge_threshold_cents + cfg.fee_per_side_cents
+            # Edge threshold is the minimum model edge required to enter.
+            # Fees are already accounted for in P&L at settlement — don't
+            # double-count them as an additional entry hurdle.
+            min_edge = cfg.edge_threshold_cents
 
             # Skip if model disagrees with market by too much — we're probably wrong
             if cfg.max_model_disagreement > 0 and abs(edge) > cfg.max_model_disagreement:
@@ -988,8 +1026,19 @@ class LiveStrategy:
                 fv = 0.0
                 edge = 0.0
                 if spot_open and vol > 0 and tr > 0:
-                    from strategy.fair_value import compute_fair_value
-                    fv = compute_fair_value(spot, spot_open, vol, tr) * 100
+                    flow_t = self._flow.get(info.asset)
+                    book_t = self._book_imb.get(info.asset)
+                    mom_t = self._momentum.get(info.asset)
+                    st = MarketState(
+                        spot=spot, spot_at_open=spot_open, vol_15m=vol,
+                        time_remaining_sec=tr, asset=info.asset,
+                        kalshi_bid=kb if kb else None,
+                        kalshi_ask=ka if ka else None,
+                        flow_imbalance=flow_t.imbalance if flow_t else None,
+                        book_imbalance=book_t.imbalance if book_t else None,
+                        momentum_1m=mom_t.momentum if mom_t else None,
+                    )
+                    fv = self._model.fair_value(st) * 100
                     edge = fv - (kb + ka) / 2 if kb and ka else 0
                 pm = self._positions.get(ticker)
                 pos = pm.position if pm else 0

@@ -100,7 +100,11 @@
       "Bash(ls -la logs/*/)",
       "Bash(tasklist.exe)",
       "Bash(powershell -Command \"Get-Process python* -ErrorAction SilentlyContinue | Format-Table Id, ProcessName, StartTime -AutoSize\")",
-      "Bash(ls -d data/*/)"
+      "Bash(ls -d data/*/)",
+      "Bash(ls -lh /c/Users/mason/OneDrive/Documents/vscworkspace/trading_projects/trading/src/data/coinbase/orderbook/2026-03-09_*.parquet /c/Users/mason/OneDrive/Documents/vscworkspace/trading_projects/trading/src/data/coinbase/trade/2026-03-09.parquet /c/Users/mason/OneDrive/Documents/vscworkspace/trading_projects/trading/src/data/kalshi/*/*/2026-03-09.parquet)",
+      "Bash(python scripts/explore_alpha.py --data-dir src/data)",
+      "Bash(grep -E \"\\\\.py$\")",
+      "Bash(python scripts/train_logistic.py --data-dir src/data)"
     ]
   }
 }

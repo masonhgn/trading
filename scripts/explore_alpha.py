@@ -138,13 +138,17 @@ def analyze_coinbase_trades(df: pd.DataFrame) -> None:
         print(f"  Trade size:    mean={s['size'].mean():.6f}  median={s['size'].median():.6f}  max={s['size'].max():.4f}")
 
         # 1-minute buckets for flow analysis
+        s["is_buy"] = (s["side"] == "buy").astype(float)
+        s["buy_size"] = s["size"] * s["is_buy"]
         s = s.set_index("dt")
         buckets = s.resample("1min").agg(
             count=("size", "count"),
             volume=("size", "sum"),
-            buy_vol=("size", lambda x: x[s.loc[x.index, "side"] == "buy"].sum() if len(x) > 0 else 0),
-            vwap=("dollar_vol", lambda x: x.sum() / s.loc[x.index, "size"].sum() if s.loc[x.index, "size"].sum() > 0 else 0),
+            buy_vol=("buy_size", "sum"),
+            dollar_vol=("dollar_vol", "sum"),
+            total_size=("size", "sum"),
         )
+        buckets["vwap"] = buckets["dollar_vol"] / buckets["total_size"].replace(0, np.nan)
         if len(buckets) > 1:
             print(f"  1min buckets:  {len(buckets)}")
             print(f"  Trades/min:    mean={buckets['count'].mean():.1f}  max={buckets['count'].max()}")

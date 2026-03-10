@@ -179,8 +179,8 @@ class TestPendingEntryPreventsOvershoot:
 
         # effective_pos = abs(1) + 1 = 2 >= max_pos(2) => blocked
         # Use a high FV so edge is large enough
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         ka_orders.submit_order.assert_not_called()
 
@@ -378,8 +378,8 @@ class TestCircuitBreakerTrips:
         pm._cash_cents = -200.0  # realized loss
         pm._position = 0         # no position, so mtm = 0, total = -200
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         assert strategy._circuit_breaker_tripped is True
         ka_orders.submit_order.assert_not_called()
@@ -401,8 +401,8 @@ class TestCircuitBreakerPersists:
         pm = strategy._positions[TICKER]
         pm._cash_cents = 500.0
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         assert strategy._circuit_breaker_tripped is True
         ka_orders.submit_order.assert_not_called()
@@ -429,8 +429,8 @@ class TestEntrySignalBuyYes:
 
         # FV = 0.60 => 60c.  kalshi_mid = 42.5c.  edge = 60 - 42.5 = 17.5c
         # min_edge = 5 + 2 = 7c.  17.5 > 7 => buy_yes at ask=45c
-        with patch("services.live_strategy.compute_fair_value", return_value=0.60):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.60)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         ka_orders.submit_order.assert_called_once()
 
@@ -451,8 +451,8 @@ class TestNoSignalInsufficientEdge:
 
         # FV = 0.53 => 53c.  kalshi_mid = 52.5c.  edge = 0.5c
         # min_edge = 15 + 7 = 22c.  0.5 < 22 => no order
-        with patch("services.live_strategy.compute_fair_value", return_value=0.53):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.53)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         ka_orders.submit_order.assert_not_called()
 
@@ -471,8 +471,8 @@ class TestCooldownBlocksSignal:
         # Set last trade to recent past
         strategy._last_trade_ts[TICKER] = time.time() - 10  # 10s ago, cooldown=60s
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         ka_orders.submit_order.assert_not_called()
 
@@ -492,8 +492,8 @@ class TestTimeRemainingFilters:
             window_end=now + 60,  # only 60s remaining
         )
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(now, ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(now, ASSET)
 
         ka_orders.submit_order.assert_not_called()
 
@@ -509,8 +509,8 @@ class TestTimeRemainingFilters:
             window_end=now + 1000,  # 1000s remaining
         )
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(now, ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(now, ASSET)
 
         ka_orders.submit_order.assert_not_called()
 
@@ -524,8 +524,8 @@ class TestPaperModeNoRealOrders:
         loop = asyncio.get_running_loop()
         _setup_strategy_state(strategy, ka_data, ka_orders, loop)
 
-        with patch("services.live_strategy.compute_fair_value", return_value=0.90):
-            await strategy._evaluate_signals(time.time(), ASSET)
+        strategy._model.fair_value = MagicMock(return_value=0.90)
+        await strategy._evaluate_signals(time.time(), ASSET)
 
         # No real orders submitted
         ka_orders.submit_order.assert_not_called()

@@ -118,17 +118,23 @@ def compute_fair_value(
 
 
 class VolEstimator:
-    """Rolling realized volatility estimator for 15-minute returns."""
+    """Rolling realized volatility estimator for 15-minute returns.
 
-    # Per-asset vol floors based on typical annualized vol scaled to 15-min.
-    # Prevents the model from being overconfident during quiet periods.
-    # BTC ~60% ann → 0.0032, ETH ~80% → 0.0043, SOL ~100% → 0.0053
+    Uses realized variance (sum of squared log returns) over a calendar
+    window, which correctly handles irregular tick spacing without needing
+    a dt_avg correction.
+    """
+
+    # Per-asset vol floors calibrated from observed 15-min realized vol.
+    # These are intentionally low — just enough to prevent division-by-zero
+    # behavior during truly flat markets, not to inject artificial uncertainty.
+    # BTC ~28% ann → ~0.0015/15min, ETH ~58% → ~0.0031, SOL ~61% → ~0.0032
     VOL_FLOOR = {
-        "BTC": 0.0030,
-        "ETH": 0.0040,
-        "SOL": 0.0050,
+        "BTC": 0.0008,
+        "ETH": 0.0015,
+        "SOL": 0.0018,
     }
-    DEFAULT_VOL_FLOOR = 0.0035
+    DEFAULT_VOL_FLOOR = 0.0010
 
     def __init__(self, lookback_sec: float = 600.0, asset: str = "") -> None:
         from collections import deque
@@ -138,32 +144,39 @@ class VolEstimator:
 
     def update(self, ts: float, price: float) -> None:
         self._prices.append((ts, price))
-        # Evict old prices — O(1) popleft with deque
         cutoff = ts - self._lookback
         while self._prices and self._prices[0][0] < cutoff:
             self._prices.popleft()
 
     def vol_15m(self) -> float:
-        """Estimate 15-minute realized vol from recent price history."""
+        """Estimate 15-minute realized vol from recent price history.
+
+        Computes realized variance as sum(log_ret^2) over the lookback
+        window, then scales to a 15-minute horizon. This is robust to
+        irregular tick spacing since each squared return naturally covers
+        its own time interval — their sum equals the total variance over
+        the lookback period regardless of tick frequency.
+        """
         if len(self._prices) < 20:
-            return 0.001  # default low vol
+            return self._vol_floor
 
         prices = np.array([p[1] for p in self._prices])
         timestamps = np.array([p[0] for p in self._prices])
 
-        # Log returns
         log_rets = np.diff(np.log(prices))
         if len(log_rets) == 0:
-            return 0.001
+            return self._vol_floor
 
-        # Average time step
-        dt_avg = np.mean(np.diff(timestamps))
-        if dt_avg <= 0:
-            return 0.001
+        # Realized variance = sum of squared log returns over the window
+        realized_var = np.sum(log_rets ** 2)
 
-        # Variance per second, then scale to 15 minutes
-        var_per_sec = np.var(log_rets) / dt_avg
-        vol_15m = np.sqrt(var_per_sec * 15 * 60)
+        # Scale from lookback window to 15 minutes
+        window_duration = timestamps[-1] - timestamps[0]
+        if window_duration <= 0:
+            return self._vol_floor
+
+        var_15m = realized_var * (15 * 60) / window_duration
+        vol_15m = np.sqrt(var_15m)
 
         return max(vol_15m, self._vol_floor)
 
